@@ -1,6 +1,7 @@
 package guru.springframework.domain;
 
 import javax.persistence.*;
+import java.util.Set;
 
 /**
  * Created by Andras Laczo 2020. 01. 19.
@@ -23,6 +24,9 @@ public class Recipe {
 
     //todo add
     //prvivate Difficulty difficulty;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
+    private Set<Ingredient> ingredients;
 
     @Lob
     private Byte[] image;

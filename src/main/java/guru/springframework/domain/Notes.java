@@ -13,6 +13,8 @@ public class Notes {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+
+    // i dont know why should we add this
     @OneToOne
     private Recipe recipe;
 
