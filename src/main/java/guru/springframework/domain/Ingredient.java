@@ -1,7 +1,4 @@
 package guru.springframework.domain;
-
-import com.sun.javafx.beans.IDProperty;
-
 import javax.persistence.*;
 import java.math.BigDecimal;
 
