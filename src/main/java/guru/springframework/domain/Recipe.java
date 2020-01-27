@@ -1,6 +1,8 @@
 package guru.springframework.domain;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -25,11 +27,8 @@ public class Recipe {
     @Enumerated(value = EnumType.STRING)
     private Difiiculty difiiculty;
 
-    //todo add
-    //prvivate Difficulty difficulty;
-
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
-    private Set<Ingredient> ingredients;
+    private Set<Ingredient> ingredients = new HashSet<Ingredient>();
 
     @Lob
     private Byte[] image;
@@ -41,7 +40,7 @@ public class Recipe {
     @JoinTable(name = "recipe_category",
     joinColumns = @JoinColumn(name = "recipe_id"),
             inverseJoinColumns = @JoinColumn(name= "category_id"))
-    private Set<Category> categories;
+    private Set<Category> categories = new HashSet<Category>();
 
     public Long getId() {
         return id;
@@ -121,6 +120,7 @@ public class Recipe {
 
     public void setNotes(Notes notes) {
         this.notes = notes;
+
     }
 
     public Difiiculty getDifiiculty() {
@@ -146,5 +146,9 @@ public class Recipe {
 
     public void setCategories(Set<Category> categories) {
         this.categories = categories;
+    }
+
+    public void addIngredient(BigDecimal amount, String desc){
+        this.getIngredients().add(new Ingredient(desc, amount, this));
     }
 }
