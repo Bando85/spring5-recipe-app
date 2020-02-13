@@ -1,8 +1,13 @@
 package guru.springframework.bootstrap;
-import guru.springframework.domain.*;
+
+import guru.springframework.domain.Category;
+import guru.springframework.domain.Difiiculty;
+import guru.springframework.domain.Notes;
+import guru.springframework.domain.Recipe;
 import guru.springframework.repositories.CategoryRepository;
 import guru.springframework.repositories.RecipeRepository;
 import guru.springframework.repositories.UnitOfMeasureRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -10,14 +15,13 @@ import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.nio.file.Files;
-import java.util.Collection;
 import java.util.HashSet;
-import java.util.Iterator;
 
 /**
  * Created by Andras Laczo 2020. 01. 25.
  */
 
+@Slf4j
 @Component
 public class DevBootstrap implements CommandLineRunner {
 
@@ -37,6 +41,8 @@ public class DevBootstrap implements CommandLineRunner {
     }
 
     private void loadData() {
+
+        log.debug("This is a debug log in Bootstrap.loadData method");
 
         //setting up Categories
         HashSet<Category> catSet1 = new HashSet<Category>();

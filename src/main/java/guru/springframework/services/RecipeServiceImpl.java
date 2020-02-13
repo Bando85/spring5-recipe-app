@@ -2,17 +2,17 @@ package guru.springframework.services;
 
 import guru.springframework.domain.Recipe;
 import guru.springframework.repositories.RecipeRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
  * Created by Andras Laczo 2020. 01. 26.
  */
 
+@Slf4j
 @Service
 public class RecipeServiceImpl implements RecipeService {
 
@@ -24,6 +24,8 @@ public class RecipeServiceImpl implements RecipeService {
 
     @Override
     public Set<Recipe> getRecipes() {
+
+        log.info("I'm in the service");
 
         Set<Recipe> list = new HashSet<Recipe>();
 
