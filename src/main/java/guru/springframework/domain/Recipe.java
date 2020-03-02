@@ -1,9 +1,6 @@
 package guru.springframework.domain;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -13,12 +10,12 @@ import java.util.Set;
 /**
  * Created by Andras Laczo 2020. 01. 19.
  */
-
-
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
 @ToString
-@RequiredArgsConstructor
 @Entity
 public class Recipe {
 
@@ -35,7 +32,7 @@ public class Recipe {
     private String directions;
 
     @Enumerated(value = EnumType.STRING)
-    private Difiiculty difiiculty;
+    private Difficulty difficulty;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
     private Set<Ingredient> ingredients = new HashSet<Ingredient>();
@@ -53,8 +50,8 @@ public class Recipe {
     private Set<Category> categories = new HashSet<Category>();
 
 
-    public void addIngredient(BigDecimal amount, String desc){
-        this.getIngredients().add(new Ingredient(desc, amount, this));
+    public void addIngredient(BigDecimal amount, String desc, UnitOfMeasure unitOfMeasure){
+        this.getIngredients().add(new Ingredient(desc, amount, this, unitOfMeasure));
     }
 
 }

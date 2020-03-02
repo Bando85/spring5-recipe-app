@@ -1,9 +1,9 @@
 package guru.springframework.services;
 
+import guru.springframework.commands.RecipeCommand;
 import guru.springframework.domain.Recipe;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -15,4 +15,11 @@ public interface RecipeService {
 
     Set<Recipe> getRecipes();
 
+    Recipe findById(long l);
+
+    RecipeCommand saveRecipeCommand(RecipeCommand command);
+
+    RecipeCommand findCommandById(long l);
+
+    void deleteById(Long id);
 }

@@ -1,7 +1,7 @@
 package guru.springframework.bootstrap;
 
 import guru.springframework.domain.Category;
-import guru.springframework.domain.Difiiculty;
+import guru.springframework.domain.Difficulty;
 import guru.springframework.domain.Notes;
 import guru.springframework.domain.Recipe;
 import guru.springframework.repositories.CategoryRepository;
@@ -47,6 +47,7 @@ public class DevBootstrap implements CommandLineRunner {
         //setting up Categories
         HashSet<Category> catSet1 = new HashSet<Category>();
         catSet1.add(categoryRepository.findByDescription("Mexican").get());
+        //catSet1.add(categoryRepository.findByDescription("Grilled").get());
 
 
         //setting up recipes
@@ -55,7 +56,8 @@ public class DevBootstrap implements CommandLineRunner {
         sgcTacos.setCategories(catSet1);
         sgcTacos.setCookTime(15);
         sgcTacos.setPrepTime(20);
-        sgcTacos.setDifiiculty(Difiiculty.MODERATE);
+        sgcTacos.setDirections("Directions for Spicy Chicken!!");
+        sgcTacos.setDifficulty(Difficulty.MODERATE);
         sgcTacos.setDescription("Spicy grilled chicken tacos! Quick marinade, then grill. Ready in about 30 minutes. Great for a quick weeknight dinner, backyard cookouts, and tailgate parties.");
         sgcTacos.setServings(4);
         sgcTacos.setUrl("https://www.simplyrecipes.com/recipes/spicy_grilled_chicken_tacos/");
@@ -77,7 +79,8 @@ public class DevBootstrap implements CommandLineRunner {
 
         //setting up ingredients
 
-        sgcTacos.addIngredient (new BigDecimal(1), "dried oregano");
+        sgcTacos.addIngredient (new BigDecimal(1), "dried oregano", unitOfMeasureRepository.findByDescription("Cup").get());
+        sgcTacos.addIngredient (new BigDecimal(2), "chicken", unitOfMeasureRepository.findByDescription("Ounce").get());
 
 
         //setting up image
