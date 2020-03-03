@@ -39,7 +39,9 @@ public class RecipeServiceImplTest {
 
     @Test
     public void getRecipeByIdTest() throws Exception {
-        Recipe recipe = Recipe.builder().id(1L).build();
+        Recipe recipe = new Recipe();
+        recipe.setId(1L);
+
         Optional<Recipe> recipeOptional = Optional.of(recipe);
 
         when(recipeRepository.findById(anyLong())).thenReturn(recipeOptional);
@@ -72,7 +74,8 @@ public class RecipeServiceImplTest {
     public void testDeleteById() {
         //given
 
-        Recipe recipe = Recipe.builder().id(1L).build();
+        Recipe recipe = new Recipe();
+        recipe.setId(1L);
 
         //delete
         recipeService.deleteById(recipe.getId());

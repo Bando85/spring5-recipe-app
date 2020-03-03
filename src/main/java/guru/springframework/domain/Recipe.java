@@ -1,21 +1,16 @@
 package guru.springframework.domain;
 
-import lombok.*;
+import lombok.Data;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
 /**
  * Created by Andras Laczo 2020. 01. 19.
  */
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
-@Getter
-@Setter
-@ToString
+
+@Data
 @Entity
 public class Recipe {
 
@@ -49,9 +44,10 @@ public class Recipe {
             inverseJoinColumns = @JoinColumn(name= "category_id"))
     private Set<Category> categories = new HashSet<Category>();
 
-
-    public void addIngredient(BigDecimal amount, String desc, UnitOfMeasure unitOfMeasure){
-        this.getIngredients().add(new Ingredient(desc, amount, this, unitOfMeasure));
+    public Recipe addIngredient(Ingredient ingredient){
+        ingredient.setRecipe(this);
+        this.ingredients.add(ingredient);
+        return this;
     }
 
 }

@@ -1,9 +1,6 @@
 package guru.springframework.bootstrap;
 
-import guru.springframework.domain.Category;
-import guru.springframework.domain.Difficulty;
-import guru.springframework.domain.Notes;
-import guru.springframework.domain.Recipe;
+import guru.springframework.domain.*;
 import guru.springframework.repositories.CategoryRepository;
 import guru.springframework.repositories.RecipeRepository;
 import guru.springframework.repositories.UnitOfMeasureRepository;
@@ -79,9 +76,10 @@ public class DevBootstrap implements CommandLineRunner {
 
         //setting up ingredients
 
-        sgcTacos.addIngredient (new BigDecimal(1), "dried oregano", unitOfMeasureRepository.findByDescription("Cup").get());
-        sgcTacos.addIngredient (new BigDecimal(2), "chicken", unitOfMeasureRepository.findByDescription("Ounce").get());
-
+        sgcTacos.addIngredient(new Ingredient("dried oregano",new BigDecimal(1),
+                unitOfMeasureRepository.findByDescription("Cup").get()));
+        sgcTacos.addIngredient(new Ingredient("chicken",new BigDecimal(2),
+                unitOfMeasureRepository.findByDescription("Ounce").get()));
 
         //setting up image
         String imagePath = "C:\\Users\\laczo\\IdeaProjects\\spring5-recipe-app\\src\\main\\resources\\images\\taco.jpg";
