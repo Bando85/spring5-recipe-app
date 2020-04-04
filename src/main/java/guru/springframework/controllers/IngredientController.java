@@ -57,6 +57,19 @@ public class IngredientController {
     }
 
     @GetMapping
+    @RequestMapping("recipe/{recipeId}/ingredient/{id}/delete")
+    public String deleteRecipeIngredient(@PathVariable String recipeId,
+                                       @PathVariable String id) {
+
+        ingredientService.deleteByRecipeIdAndIngredientId(Long.valueOf(recipeId), Long.valueOf(id));
+
+        //use command object to avoid lazy load errors in Tyhmeleaf
+        //model.addAttribute("recipe", recipeService.findCommandById(Long.valueOf(recipeId)));
+
+        return "redirect:/recipe/" + recipeId + "/ingredients/";
+    }
+
+    @GetMapping
     @RequestMapping("recipe/{recipeId}/ingredient/new")
     public String newRecipe(@PathVariable String recipeId, Model model) {
 

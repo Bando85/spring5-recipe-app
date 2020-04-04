@@ -7,16 +7,20 @@ import guru.springframework.converters.UnitOfMeasureCommandToUnitOfMeasure;
 import guru.springframework.converters.UnitOfMeasureToUnitOfMeasureCommand;
 import guru.springframework.domain.Ingredient;
 import guru.springframework.domain.Recipe;
+import guru.springframework.repositories.IngredientRepository;
 import guru.springframework.repositories.RecipeRepository;
 import guru.springframework.repositories.UnitOfMeasureRepository;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.util.Optional;
+import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
 
@@ -31,6 +35,9 @@ public class IngredientServiceImplTest {
     @Mock
     UnitOfMeasureRepository unitOfMeasureRepository;
 
+    @Mock
+    IngredientRepository ingredientRepository;
+
     IngredientService ingredientService;
 
     //init converters
@@ -44,7 +51,7 @@ public class IngredientServiceImplTest {
         MockitoAnnotations.initMocks(this);
 
         ingredientService = new IngredientServiceImpl(ingredientToIngredientCommand, ingredientCommandToIngredient,
-                recipeRepository, unitOfMeasureRepository);
+                recipeRepository, unitOfMeasureRepository, ingredientRepository);
     }
 
     @Test
@@ -82,7 +89,6 @@ public class IngredientServiceImplTest {
         verify(recipeRepository, times(1)).findById(anyLong());
     }
 
-
     @Test
     public void testSaveRecipeCommand() throws Exception {
         //given
@@ -107,5 +113,41 @@ public class IngredientServiceImplTest {
         verify(recipeRepository, times(1)).findById(anyLong());
         verify(recipeRepository, times(1)).save(any(Recipe.class));
 
+    }
+
+    @Test
+    public void testdeleteByRecipeIdAndIngredientId() throws Exception {
+        //given
+        Recipe recipe = new Recipe();
+        recipe.setId(1L);
+
+        Ingredient ingredient1 = new Ingredient();
+        ingredient1.setId(1L);
+
+        Ingredient ingredient2 = new Ingredient();
+        ingredient2.setId(2L);
+
+        Ingredient ingredient3 = new Ingredient();
+        ingredient3.setId(3L);
+
+        recipe.addIngredient(ingredient1);
+        recipe.addIngredient(ingredient2);
+        recipe.addIngredient(ingredient3);
+
+        Optional<Recipe> recipeOptional = Optional.of(recipe);
+
+        when(recipeRepository.findById(anyLong())).thenReturn(recipeOptional);
+
+        //then
+        ingredientService.deleteByRecipeIdAndIngredientId(1L, 3L);
+
+        //when
+        ArgumentCaptor<Recipe> argumentCaptor = ArgumentCaptor.forClass(Recipe.class);
+        verify(recipeRepository).save(argumentCaptor.capture());
+        Set<Ingredient> ingredients = argumentCaptor.getValue().getIngredients();
+        assertEquals(ingredients.size(), 2);
+        assertFalse(ingredients.stream()
+            .anyMatch(ingredient -> ingredient.getId().equals(3L)));
+        verify(ingredientRepository).deleteById(anyLong());
     }
 }

@@ -5,6 +5,7 @@ import guru.springframework.converters.IngredientCommandToIngredient;
 import guru.springframework.converters.IngredientToIngredientCommand;
 import guru.springframework.domain.Ingredient;
 import guru.springframework.domain.Recipe;
+import guru.springframework.repositories.IngredientRepository;
 import guru.springframework.repositories.RecipeRepository;
 import guru.springframework.repositories.UnitOfMeasureRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * Created by jt on 6/28/17.
@@ -24,14 +26,16 @@ public class IngredientServiceImpl implements IngredientService {
     private final IngredientCommandToIngredient ingredientCommandToIngredient;
     private final RecipeRepository recipeRepository;
     private final UnitOfMeasureRepository unitOfMeasureRepository;
+    private final IngredientRepository ingredientRepository;
 
     public IngredientServiceImpl(IngredientToIngredientCommand ingredientToIngredientCommand,
                                  IngredientCommandToIngredient ingredientCommandToIngredient,
-                                 RecipeRepository recipeRepository, UnitOfMeasureRepository unitOfMeasureRepository) {
+                                 RecipeRepository recipeRepository, UnitOfMeasureRepository unitOfMeasureRepository, IngredientRepository ingredientRepository) {
         this.ingredientToIngredientCommand = ingredientToIngredientCommand;
         this.ingredientCommandToIngredient = ingredientCommandToIngredient;
         this.recipeRepository = recipeRepository;
         this.unitOfMeasureRepository = unitOfMeasureRepository;
+        this.ingredientRepository = ingredientRepository;
     }
 
     @Override
@@ -110,6 +114,38 @@ public class IngredientServiceImpl implements IngredientService {
             //to do check for fail
             return ingredientToIngredientCommand.convert(savedIngredientOptional.get());
         }
+
+    }
+
+    @Override
+    public void deleteByRecipeIdAndIngredientId(Long recipeId, Long ingredientId) {
+        Optional<Recipe> recipeOptional = recipeRepository.findById(recipeId);
+
+        if (!recipeOptional.isPresent()){
+            //todo impl error handling
+            log.error("recipe id not found. Id: " + recipeId);
+        }
+
+        Recipe recipe = recipeOptional.get();
+        Set<Ingredient> ingredientSet = recipe.getIngredients();
+
+        Optional<Ingredient> ingredientOptional = recipe
+                .getIngredients()
+                .stream()
+                .filter(ingredient -> ingredient.getId().equals(ingredientId))
+                .findFirst();
+
+        if(ingredientOptional.isPresent()){
+            ingredientSet.remove(ingredientOptional.get());
+            recipe.setIngredients(ingredientSet);
+            recipeRepository.save(recipe);
+        } else {
+            //throw error if target ingredient not present
+            //todo impl error handling
+            log.error("ingredient id not found. Id: " + ingredientId);
+        }
+
+        ingredientRepository.deleteById(ingredientOptional.get().getId());
 
     }
 }
