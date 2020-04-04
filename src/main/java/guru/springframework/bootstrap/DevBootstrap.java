@@ -59,7 +59,9 @@ public class DevBootstrap implements CommandLineRunner {
         sgcTacos.setServings(4);
         sgcTacos.setUrl("https://www.simplyrecipes.com/recipes/spicy_grilled_chicken_tacos/");
         sgcTacos.setSource("by Sally Vargas");
-        sgcTacos.setNotes(new Notes("Today’s tacos are more purposeful – a deliberate meal instead of a secretive midnight snack!\n" +
+
+        Notes sgctNotes = new Notes();
+        sgctNotes.setRecipeNotes("Today’s tacos are more purposeful – a deliberate meal instead of a secretive midnight snack!\n" +
                 "\n" +
                 "\n" +
                 "First, I marinate the chicken briefly in a spicy paste of ancho chile powder, oregano, cumin, and sweet orange juice while the grill is heating. You can also use this time to prepare the taco toppings.\n" +
@@ -72,8 +74,9 @@ public class DevBootstrap implements CommandLineRunner {
                 "\n" +
                 "Everyone can grab a warm tortilla from the pile and make their own tacos just they way they like them.\n" +
                 "\n" +
-                "You could also easily double or even triple this recipe for a larger party. A taco and a cold beer on a warm day? Now that’s living!"));
+                "You could also easily double or even triple this recipe for a larger party. A taco and a cold beer on a warm day? Now that’s living!");
 
+        sgcTacos.setNotes(sgctNotes);
         //setting up ingredients
 
         sgcTacos.addIngredient(new Ingredient("dried oregano",new BigDecimal(1),

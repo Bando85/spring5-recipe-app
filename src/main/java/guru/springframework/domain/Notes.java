@@ -1,9 +1,7 @@
 package guru.springframework.domain;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 
@@ -11,10 +9,8 @@ import javax.persistence.*;
  * Created by Andras Laczo 2020. 01. 19.
  */
 
-@Getter
-@Setter
-@ToString
-@RequiredArgsConstructor
+@Data
+@EqualsAndHashCode(exclude = {"recipe"})
 @Entity
 public class Notes {
 
@@ -25,7 +21,6 @@ public class Notes {
     @Lob
     private String recipeNotes;
 
-    public Notes(String recipeNotes) {
-        this.recipeNotes = recipeNotes;
-    }
+    @OneToOne
+    private Recipe recipe;
 }
