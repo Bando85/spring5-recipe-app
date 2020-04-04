@@ -85,7 +85,7 @@ public class DevBootstrap implements CommandLineRunner {
                 unitOfMeasureRepository.findByDescription("Ounce").get()));
 
         //setting up image
-        String imagePath = "C:\\Users\\laczo\\IdeaProjects\\spring5-recipe-app\\src\\main\\resources\\images\\taco.jpg";
+        String imagePath = "C:\\Users\\laczo\\IdeaProjects\\spring5-recipe-app\\src\\main\\resources\\static\\images\\taco.jpg";
         try {
             File myPicture = new File(imagePath);
             byte[] arr1;

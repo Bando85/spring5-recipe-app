@@ -25,18 +25,29 @@
                     <div class="card-header">
                         <h1 class="card-title" th:text="${recipe.description}">Recipe Description Here!</h1>
                     </div>
+
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-3">
                                 <h5>Categories:</h5>
                             </div>
-                            <div class="col-md-9">
+                            <div class="col-md-3">
                                 <ul th:each="category : ${recipe.categories}">
                                     <li th:text="${category.description}">cat one</li>
                                     <li th:remove="all">cat two</li>
                                     <li th:remove="all">cat three</li>
                                 </ul>
                             </div>
+                            <div class="col-md-3">
+                                <img src="../../src\main\resources\static\images\pict1.jpg"
+                                     th:src="@{\images\pict1.jpg}"
+                                        width ="200" height ="200">
+                            </div>
+                            <div class="col-md-1">
+                                <a class="btn btn-default" href="#"
+                                   th:href="@{'/recipe/' + ${recipe.id} + '/image'}" role="button">Change Image</a>
+                            </div>
+
                         </div>
                         <div class="row">
                             <div class="col-md-3">

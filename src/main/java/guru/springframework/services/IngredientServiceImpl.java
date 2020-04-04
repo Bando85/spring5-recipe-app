@@ -137,6 +137,7 @@ public class IngredientServiceImpl implements IngredientService {
 
         if(ingredientOptional.isPresent()){
             ingredientSet.remove(ingredientOptional.get());
+            ingredientOptional.get().setRecipe(null);
             recipe.setIngredients(ingredientSet);
             recipeRepository.save(recipe);
         } else {
@@ -145,7 +146,7 @@ public class IngredientServiceImpl implements IngredientService {
             log.error("ingredient id not found. Id: " + ingredientId);
         }
 
-        ingredientRepository.deleteById(ingredientOptional.get().getId());
+        //ingredientRepository.deleteById(ingredientOptional.get().getId());
 
     }
 }
