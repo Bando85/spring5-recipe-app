@@ -15,11 +15,11 @@ public interface RecipeService {
 
     Set<Recipe> getRecipes();
 
-    Recipe findById(long l);
+    Recipe findById(Long l);
 
     RecipeCommand saveRecipeCommand(RecipeCommand command);
 
-    RecipeCommand findCommandById(long l);
+    RecipeCommand findCommandById(Long l);
 
     void deleteById(Long id);
 }
