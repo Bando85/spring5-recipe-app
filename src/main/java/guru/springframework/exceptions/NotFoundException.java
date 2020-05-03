@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
  * Created by Andras Laczo 2020. 04. 13.
+ *
  */
 
 @ResponseStatus(HttpStatus.NOT_FOUND)
