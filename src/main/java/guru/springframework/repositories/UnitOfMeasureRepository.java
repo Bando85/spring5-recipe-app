@@ -10,7 +10,7 @@ import java.util.Optional;
  * Created by Andras Laczo 2020. 01. 21.
  */
 
-public interface UnitOfMeasureRepository extends CrudRepository<UnitOfMeasure, Long> {
+public interface UnitOfMeasureRepository extends CrudRepository<UnitOfMeasure, String> {
 
     Optional<UnitOfMeasure> findByDescription(String description);
 }

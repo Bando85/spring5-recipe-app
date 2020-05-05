@@ -27,12 +27,6 @@ public class IndexController {
         model.addAttribute("recipes", recipeService.getRecipes());
 
 
-        //Optional<Category> categoryOptional = categoryRepository.findByDescription("American");
-        //Optional<UnitOfMeasure> unitOfMeasureOptional = unitOfMeasureRepository.findByDescription("Teaspoon");
-
-        //System.out.println("Cat Id is:" + categoryOptional.get().getId());
-        //System.out.println("UOM Id is" + unitOfMeasureOptional.get().getId());
-
         return "index";
     }
 }

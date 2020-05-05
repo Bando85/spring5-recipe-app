@@ -1,8 +1,7 @@
 package guru.springframework.domain;
 
-import lombok.Data;
-
-import javax.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -10,14 +9,11 @@ import java.util.Set;
  * Created by Andras Laczo 2020. 01. 19.
  */
 
-@Data
-@Entity
+@Getter
+@Setter
 public class Recipe {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+    private String id;
     private String description;
     private Integer prepTime;
     private Integer cookTime;
@@ -26,22 +22,14 @@ public class Recipe {
     private String url;
     private String directions;
 
-    @Enumerated(value = EnumType.STRING)
     private Difficulty difficulty;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
     private Set<Ingredient> ingredients = new HashSet<Ingredient>();
 
-    @Lob
     private Byte[] image;
 
-    @OneToOne(cascade = CascadeType.ALL)
     private Notes notes;
 
-    @ManyToMany
-    @JoinTable(name = "recipe_category",
-    joinColumns = @JoinColumn(name = "recipe_id"),
-            inverseJoinColumns = @JoinColumn(name= "category_id"))
     private Set<Category> categories = new HashSet<Category>();
 
     public Recipe addIngredient(Ingredient ingredient){

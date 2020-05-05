@@ -2,7 +2,6 @@ package guru.springframework.commands;
 
 import guru.springframework.domain.Difficulty;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.validator.constraints.URL;
 
@@ -18,9 +17,8 @@ import java.util.Set;
  */
 @Getter
 @Setter
-@NoArgsConstructor
 public class RecipeCommand {
-    private Long id;
+    private String id;
 
     @NotBlank
     @Size(min = 3, max = 255)

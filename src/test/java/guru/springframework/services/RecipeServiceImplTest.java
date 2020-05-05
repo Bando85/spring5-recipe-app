@@ -41,17 +41,17 @@ public class RecipeServiceImplTest {
     @Test
     public void getRecipeByIdTest() throws Exception {
         Recipe recipe = new Recipe();
-        recipe.setId(1L);
+        recipe.setId("1");
 
         Optional<Recipe> recipeOptional = Optional.of(recipe);
 
-        when(recipeRepository.findById(anyLong())).thenReturn(recipeOptional);
+        when(recipeRepository.findById(anyString())).thenReturn(recipeOptional);
 
-        Recipe recipeReturned = recipeService.findById(1L);
+        Recipe recipeReturned = recipeService.findById("1");
 
         assertNotNull("Null recipe returned", recipeReturned);
         assertEquals(recipe.getId(), recipeReturned.getId());
-        verify(recipeRepository).findById(anyLong());
+        verify(recipeRepository).findById(anyString());
         verify(recipeRepository, never()).findAll();
 
     }
@@ -61,9 +61,9 @@ public class RecipeServiceImplTest {
 
         Optional<Recipe> recipeOptional = Optional.empty();
 
-        when(recipeRepository.findById(anyLong())).thenReturn(recipeOptional);
+        when(recipeRepository.findById(anyString())).thenReturn(recipeOptional);
 
-        Recipe recipeReturned = recipeService.findById(1L);
+        Recipe recipeReturned = recipeService.findById("1");
 
         //should go boom
     }
@@ -88,13 +88,13 @@ public class RecipeServiceImplTest {
         //given
 
         Recipe recipe = new Recipe();
-        recipe.setId(1L);
+        recipe.setId("1");
 
         //delete
         recipeService.deleteById(recipe.getId());
 
         //then
-        verify(recipeRepository).deleteById(1L);
+        verify(recipeRepository).deleteById("1");
 
     }
 
