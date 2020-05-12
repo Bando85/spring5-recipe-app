@@ -38,3 +38,6 @@ jobs:
             - ~/.m2
           key: v1-dependencies-{{ checksum "build.gradle" }}
 
+      # run tests!
+      - run: ./gradlew clean test
+
