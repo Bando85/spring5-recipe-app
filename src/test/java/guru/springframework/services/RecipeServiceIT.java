@@ -9,6 +9,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,22 +23,26 @@ import static org.junit.Assert.assertEquals;
 
 @Ignore
 @RunWith(SpringRunner.class)
+@DataMongoTest
 @SpringBootTest
 public class RecipeServiceIT {
 
     public static final String NEW_DESCRIPTION = "New Description";
 
-    @Autowired
+
     RecipeService recipeService;
 
-    @Autowired
+
     RecipeRepository recipeRepository;
 
-    @Autowired
-    RecipeCommandToRecipe recipeCommandToRecipe;
 
-    @Autowired
     RecipeToRecipeCommand recipeToRecipeCommand;
+
+    public RecipeServiceIT(RecipeService recipeService, RecipeRepository recipeRepository, RecipeToRecipeCommand recipeToRecipeCommand) {
+        this.recipeService = recipeService;
+        this.recipeRepository = recipeRepository;
+        this.recipeToRecipeCommand = recipeToRecipeCommand;
+    }
 
     @Transactional
     @Test
@@ -49,7 +54,7 @@ public class RecipeServiceIT {
 
         //when
         testRecipeCommand.setDescription(NEW_DESCRIPTION);
-        RecipeCommand savedRecipeCommand = recipeService.saveRecipeCommand(testRecipeCommand);
+        RecipeCommand savedRecipeCommand = recipeService.saveRecipeCommand(testRecipeCommand).block();
 
         //then
         assertEquals(NEW_DESCRIPTION, savedRecipeCommand.getDescription());

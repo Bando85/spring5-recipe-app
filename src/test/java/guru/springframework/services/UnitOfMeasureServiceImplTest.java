@@ -3,13 +3,15 @@ package guru.springframework.services;
 import guru.springframework.commands.UnitOfMeasureCommand;
 import guru.springframework.converters.UnitOfMeasureToUnitOfMeasureCommand;
 import guru.springframework.domain.UnitOfMeasure;
-import guru.springframework.repositories.UnitOfMeasureRepository;
+import guru.springframework.repositories.reactive.UnitOfMeasureReactiveRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import reactor.core.publisher.Flux;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
@@ -24,7 +26,7 @@ public class UnitOfMeasureServiceImplTest {
     UnitOfMeasureService service;
 
     @Mock
-    UnitOfMeasureRepository repository;
+    UnitOfMeasureReactiveRepository repository;
 
     @Before
     public void setUp() throws Exception {
@@ -47,10 +49,11 @@ public class UnitOfMeasureServiceImplTest {
         unitOfMeasures.add(uom1);
         unitOfMeasures.add(uom2);
 
-        when(repository.findAll()).thenReturn(unitOfMeasures);
+        when(repository.findAll()).thenReturn(Flux.just(uom1, uom2));
 
         //when
-        Set<UnitOfMeasureCommand> unitOfMeasureCommands = service.listAllUoms();
+        List<UnitOfMeasureCommand> unitOfMeasureCommands = service.listAllUoms().collectList().block();
+
         //then
         assertEquals(2, unitOfMeasureCommands.size());
         verify(repository).findAll();

@@ -19,8 +19,6 @@ public class Ingredient {
     private String id = UUID.randomUUID().toString();
     private String description;
     private BigDecimal amount;
-
-    @DBRef
     private UnitOfMeasure unitOfMeasure;
 
     public Ingredient() {
@@ -32,10 +30,10 @@ public class Ingredient {
         this.unitOfMeasure = uom;
     }
 
-    public Ingredient(String description, BigDecimal amount, UnitOfMeasure uom, Recipe recipe) {
+    /*public Ingredient(String description, BigDecimal amount, UnitOfMeasure uom, Recipe recipe) {
         this.description = description;
         this.amount = amount;
         this.unitOfMeasure = uom;
-    }
+    }*/
 
 }

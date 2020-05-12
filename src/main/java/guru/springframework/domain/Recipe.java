@@ -27,21 +27,13 @@ public class Recipe {
     private String source;
     private String url;
     private String directions;
-
     private Difficulty difficulty;
-
-
     private Set<Ingredient> ingredients = new HashSet<Ingredient>();
-
     private Byte[] image;
-
     private Notes notes;
-
-    @DBRef
     private Set<Category> categories = new HashSet<Category>();
 
     public Recipe addIngredient(Ingredient ingredient){
-        //ingredient.setRecipe(this);
         this.ingredients.add(ingredient);
         return this;
     }
@@ -49,7 +41,6 @@ public class Recipe {
     public void setNotes(Notes notes) {
         if (notes != null) {
             this.notes = notes;
-          //  notes.setRecipe(this);
         }
     }
 

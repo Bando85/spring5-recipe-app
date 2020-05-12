@@ -2,6 +2,7 @@ package guru.springframework.services;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import reactor.core.publisher.Mono;
 
 /**
  * Created by Andras Laczo 2020. 04. 04.
@@ -9,5 +10,5 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public interface ImageService {
-   void saveImageFile(String recipeId, MultipartFile File);
+   Mono<Void> saveImageFile(String recipeId, MultipartFile File);
 }
