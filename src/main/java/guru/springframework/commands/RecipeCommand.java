@@ -2,6 +2,7 @@ package guru.springframework.commands;
 
 import guru.springframework.domain.Difficulty;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.validator.constraints.URL;
 
@@ -19,6 +20,7 @@ import java.util.Set;
  */
 @Getter
 @Setter
+@NoArgsConstructor
 public class RecipeCommand {
     private String id;
 

@@ -4,7 +4,7 @@
 
 buildscript {
     ext {
-        springBootVersion = '2.1.0.RELEASE'
+        springBootVersion = '2.2.2.RELEASE'
     }
     repositories {
         mavenCentral()
@@ -38,7 +38,7 @@ dependencies {
 
     compile('org.springframework.boot:spring-boot-starter-data-mongodb')
     compile('org.springframework.boot:spring-boot-starter-thymeleaf')
-    compile('org.springframework.boot:spring-boot-starter-web')
+    compile('org.springframework.boot:spring-boot-starter-webflux')
     runtime('org.springframework.boot:spring-boot-devtools')
     compile ('org.webjars:bootstrap:4.4.1-1')
     compile('de.flapdoodle.embed:de.flapdoodle.embed.mongo')
